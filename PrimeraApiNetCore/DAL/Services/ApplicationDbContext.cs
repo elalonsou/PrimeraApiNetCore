@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 namespace DAL.Services
 {
-    public class ApplicationDbContext: DbContext, IHola
+    public class ApplicationDbContext: DbContext
     {
           protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -28,14 +28,12 @@ namespace DAL.Services
                     .GetService<ILoggerFactory>();
         }
 
-        public void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //Fluent API
 
         }
 
-        public string llamarHola(){
-            return "Hola Pesicola";
-        }
+     
     }
 }

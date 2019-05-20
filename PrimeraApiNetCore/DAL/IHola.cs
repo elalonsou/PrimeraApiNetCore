@@ -4,6 +4,6 @@ namespace DAL
 {
     public interface IHola
     {
-        string llamarHola { get;}
+        string llamarHola ();
     } 
 }

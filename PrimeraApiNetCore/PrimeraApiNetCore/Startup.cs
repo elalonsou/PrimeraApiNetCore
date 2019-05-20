@@ -27,7 +27,13 @@ namespace PrimeraApiNetCore
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.(DAL.IHola , DAL.Services.ApplicationDbContext);
+         
+            //Esto creo que crea un singleton, es decir se crea una única instancia del servicio durante el funcionamiento de la aplicación Web.
+            //services.Add(new ServiceDescriptor(typeof(DAL.IHola), new DAL.Services.ApplicationDbContext()));
+            
+            //Registramos el servicio como Scope
+            services.AddScoped<DAL.IHola, DAL.Hola>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
