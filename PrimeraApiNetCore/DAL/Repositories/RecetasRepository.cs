@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 using DAL.Repositories.Interfaces;
 using DAL.Services;
@@ -14,8 +15,10 @@ namespace DAL.Repositories
         { }
 
        public IEnumerable<Recetas> getAllByUser()
-       {
-           return new List<Recetas>();
+       { 
+            return _appContext.Recetas.Where(r => r.nombre.Contains("Pollo")).ToList();
        }
+
+        private ApplicationDbContext _appContext => (ApplicationDbContext)_context;
     }
 }

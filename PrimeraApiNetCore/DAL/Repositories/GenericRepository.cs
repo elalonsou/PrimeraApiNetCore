@@ -9,13 +9,13 @@ namespace DAL.Repositories
 {
     public class GenericRepository<TEntity> where TEntity : class
     {
-        internal DbContext context;
+        internal DbContext _context;
         internal DbSet<TEntity> dbSet;
 
         public GenericRepository(DbContext context)
         {
-            this.context = context;
-            this.dbSet = context.Set<TEntity>();
+            this._context = context;
+            this.dbSet = _context.Set<TEntity>();
         }
 
         public virtual IEnumerable<TEntity> Get(
@@ -64,7 +64,7 @@ namespace DAL.Repositories
 
         public virtual void Delete(TEntity entityToDelete)
         {
-            if (context.Entry(entityToDelete).State == EntityState.Detached)
+            if (_context.Entry(entityToDelete).State == EntityState.Detached)
             {
                 dbSet.Attach(entityToDelete);
             }
@@ -74,7 +74,7 @@ namespace DAL.Repositories
         public virtual void Update(TEntity entityToUpdate)
         {
             dbSet.Attach(entityToUpdate);
-            context.Entry(entityToUpdate).State = EntityState.Modified;
+            _context.Entry(entityToUpdate).State = EntityState.Modified;
         }
     }
 }

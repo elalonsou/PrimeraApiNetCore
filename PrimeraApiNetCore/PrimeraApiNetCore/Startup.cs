@@ -44,10 +44,11 @@ namespace PrimeraApiNetCore
             //services.AddScoped<DAL.IHola, DAL.Hola>();
 
             services.AddDbContext<ApplicationDbContext>(options => 
-                options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"])
+                options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"], b => b.MigrationsAssembly("PrimeraApiNetCore"))
                         .EnableSensitiveDataLogging(true)
                         .UseLoggerFactory(services.BuildServiceProvider()
                                         .GetService<ILoggerFactory>())
+                
               
             );
 

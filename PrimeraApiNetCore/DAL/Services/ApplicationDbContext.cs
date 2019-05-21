@@ -1,10 +1,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
+
+using DAL.Models;
+
+
 namespace DAL.Services
 {
     public class ApplicationDbContext: DbContext
     {
+        public string CurrentUserId { get; set; }
+        public DbSet<Recetas> Recetas { get; set; }
+
         public ApplicationDbContext(DbContextOptions options) : base(options)
         { }
 
