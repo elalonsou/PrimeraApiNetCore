@@ -5,7 +5,11 @@ namespace DAL.Services
 {
     public class ApplicationDbContext: DbContext
     {
-          protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public ApplicationDbContext(DbContextOptions options) : base(options)
+        { }
+
+        /* 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //Usamos una instancia de SqlServer localDb que es suficiente para realizar este demo.
             //Tambien configuramos para que las consultas que se realicen se muestren por consola.
@@ -27,6 +31,7 @@ namespace DAL.Services
             return serviceCollection.BuildServiceProvider()
                     .GetService<ILoggerFactory>();
         }
+        */
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
