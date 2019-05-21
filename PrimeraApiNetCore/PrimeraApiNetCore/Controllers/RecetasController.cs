@@ -7,7 +7,7 @@ namespace PrimeraApiNetCore.Controllers
 {
      [Route("api/[controller]")]
     [ApiController]
-    public class RecetasController
+    public class RecetasController : ControllerBase
     {
         readonly IUnitOfWork _unitOfWork;
         public RecetasController(IUnitOfWork unitOfWork){
