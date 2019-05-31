@@ -21,7 +21,8 @@ namespace DAL.Models
 
         public Calendario Calendario { get; set; }
 
-        public List<Receta> Receta { get; set; }
+        public List<PlanificacionReceta> PlanificacionesRecetas { get; set; }
+
 
     }
 

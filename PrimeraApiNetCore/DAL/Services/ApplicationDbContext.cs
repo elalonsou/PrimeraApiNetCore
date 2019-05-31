@@ -11,9 +11,15 @@ namespace DAL.Services
     {
         public string CurrentUserId { get; set; }
 
-        public DbSet<Receta> Receta { get; set; }
-        public DbSet<Calendario> Calendario { get; set; }
-        public DbSet<Planificacion> Planificacion { get; set; }
+        public DbSet<Receta> Recetas { get; set; }
+        public DbSet<Calendario> Calendarios { get; set; }
+        public DbSet<Planificacion> Planificaciones { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
+
+        public DbSet<CalendarioUsuario> CalendariosUsuarios { get; set; }
+
+        public DbSet<RecetaUsuario> RecetasUsuarios { get; set; }
+
 
         public ApplicationDbContext(DbContextOptions options) : base(options)
         { }
@@ -53,6 +59,7 @@ namespace DAL.Services
 
             modelBuilder.Entity<CalendarioUsuario>().HasKey(p => new { p.CalendarioId, p.UsuarioId });
             modelBuilder.Entity<RecetaUsuario>().HasKey(p => new { p.RecetaId, p.UsuarioId });
+            modelBuilder.Entity<PlanificacionReceta>().HasKey(p => new { p.RecetaId, p.PlanificacionId });
         }
 
      

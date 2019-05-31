@@ -23,5 +23,8 @@ namespace DAL.Models
         public string Alias { get; set; }
 
         public List<RecetaUsuario> RecetasUsuarios { get; set; }
+
+        public List<CalendarioUsuario> CalendariosUsuarios { get; set; }
+
     }
 }

@@ -31,7 +31,7 @@ namespace PrimeraApiNetCore.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Calendario");
+                    b.ToTable("Calendarios");
                 });
 
             modelBuilder.Entity("DAL.Models.CalendarioUsuario", b =>
@@ -46,7 +46,7 @@ namespace PrimeraApiNetCore.Migrations
 
                     b.HasIndex("UsuarioId");
 
-                    b.ToTable("CalendarioUsuario");
+                    b.ToTable("CalendariosUsuarios");
                 });
 
             modelBuilder.Entity("DAL.Models.Planificacion", b =>
@@ -66,7 +66,20 @@ namespace PrimeraApiNetCore.Migrations
 
                     b.HasIndex("CalendarioId");
 
-                    b.ToTable("Planificacion");
+                    b.ToTable("Planificaciones");
+                });
+
+            modelBuilder.Entity("DAL.Models.PlanificacionReceta", b =>
+                {
+                    b.Property<int>("RecetaId");
+
+                    b.Property<int>("PlanificacionId");
+
+                    b.HasKey("RecetaId", "PlanificacionId");
+
+                    b.HasIndex("PlanificacionId");
+
+                    b.ToTable("PlanificacionReceta");
                 });
 
             modelBuilder.Entity("DAL.Models.Receta", b =>
@@ -78,15 +91,11 @@ namespace PrimeraApiNetCore.Migrations
                     b.Property<string>("Nombre")
                         .HasMaxLength(10);
 
-                    b.Property<int>("PlanificacionId");
-
                     b.Property<int>("Puntuacion");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PlanificacionId");
-
-                    b.ToTable("Receta");
+                    b.ToTable("Recetas");
                 });
 
             modelBuilder.Entity("DAL.Models.RecetaUsuario", b =>
@@ -101,7 +110,7 @@ namespace PrimeraApiNetCore.Migrations
 
                     b.HasIndex("UsuarioId");
 
-                    b.ToTable("RecetaUsuario");
+                    b.ToTable("RecetasUsuarios");
                 });
 
             modelBuilder.Entity("DAL.Models.Usuario", b =>
@@ -116,8 +125,6 @@ namespace PrimeraApiNetCore.Migrations
                     b.Property<string>("Apellidos")
                         .HasMaxLength(10);
 
-                    b.Property<int?>("CalendarioId");
-
                     b.Property<string>("Email")
                         .IsRequired();
 
@@ -127,20 +134,18 @@ namespace PrimeraApiNetCore.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CalendarioId");
-
-                    b.ToTable("Usuario");
+                    b.ToTable("Usuarios");
                 });
 
             modelBuilder.Entity("DAL.Models.CalendarioUsuario", b =>
                 {
                     b.HasOne("DAL.Models.Calendario", "Calendario")
-                        .WithMany()
+                        .WithMany("CalendariosUsuarios")
                         .HasForeignKey("CalendarioId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("DAL.Models.Usuario", "Usuario")
-                        .WithMany()
+                        .WithMany("CalendariosUsuarios")
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -153,11 +158,16 @@ namespace PrimeraApiNetCore.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("DAL.Models.Receta", b =>
+            modelBuilder.Entity("DAL.Models.PlanificacionReceta", b =>
                 {
                     b.HasOne("DAL.Models.Planificacion", "Planificacion")
-                        .WithMany("Receta")
+                        .WithMany("PlanificacionesRecetas")
                         .HasForeignKey("PlanificacionId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DAL.Models.Receta", "Receta")
+                        .WithMany("PlanificacionesRecetas")
+                        .HasForeignKey("RecetaId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -172,13 +182,6 @@ namespace PrimeraApiNetCore.Migrations
                         .WithMany("RecetasUsuarios")
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("DAL.Models.Usuario", b =>
-                {
-                    b.HasOne("DAL.Models.Calendario")
-                        .WithMany("Usuarios")
-                        .HasForeignKey("CalendarioId");
                 });
 #pragma warning restore 612, 618
         }

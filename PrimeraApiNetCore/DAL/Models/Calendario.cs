@@ -16,7 +16,6 @@ namespace DAL.Models
 
         public List<Planificacion> Planificaciones { get; set; }
 
-        public List<Usuario> Usuarios { get; set; }
-
+        public List<CalendarioUsuario> CalendariosUsuarios { get; set; }
     }
 }

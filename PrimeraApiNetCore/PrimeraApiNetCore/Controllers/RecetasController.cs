@@ -16,7 +16,7 @@ namespace PrimeraApiNetCore.Controllers
 
         [HttpGet]
         public IEnumerable<Receta> GetRecetaByUserId(){
-            return _unitOfWork.Recetas.GetAllByUser(1);
+            return _unitOfWork.Recetas.GetAllByUserId(1);
         }
     }
 }

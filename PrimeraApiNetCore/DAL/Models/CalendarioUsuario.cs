@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DAL.Models
 {
-    class CalendarioUsuario
+    public class CalendarioUsuario
     {
         [Required]
         public int CalendarioId { get; set; }

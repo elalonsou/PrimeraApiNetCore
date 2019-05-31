@@ -4,15 +4,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PrimeraApiNetCore.Migrations
 {
-    public partial class EntidadesAgregadas : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Recetas");
-
             migrationBuilder.CreateTable(
-                name: "Calendario",
+                name: "Calendarios",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -21,11 +18,41 @@ namespace PrimeraApiNetCore.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Calendario", x => x.Id);
+                    table.PrimaryKey("PK_Calendarios", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Planificacion",
+                name: "Recetas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Nombre = table.Column<string>(maxLength: 10, nullable: true),
+                    Puntuacion = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Recetas", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Usuarios",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Nombre = table.Column<string>(maxLength: 50, nullable: false),
+                    Apellidos = table.Column<string>(maxLength: 10, nullable: true),
+                    Email = table.Column<string>(nullable: false),
+                    Alias = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Usuarios", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Planificaciones",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -36,61 +63,17 @@ namespace PrimeraApiNetCore.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Planificacion", x => x.Id);
+                    table.PrimaryKey("PK_Planificaciones", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Planificacion_Calendario_CalendarioId",
+                        name: "FK_Planificaciones_Calendarios_CalendarioId",
                         column: x => x.CalendarioId,
-                        principalTable: "Calendario",
+                        principalTable: "Calendarios",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Usuario",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Nombre = table.Column<string>(maxLength: 50, nullable: false),
-                    Apellidos = table.Column<string>(maxLength: 10, nullable: true),
-                    Email = table.Column<string>(nullable: false),
-                    Alias = table.Column<string>(nullable: false),
-                    CalendarioId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Usuario", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Usuario_Calendario_CalendarioId",
-                        column: x => x.CalendarioId,
-                        principalTable: "Calendario",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Receta",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Nombre = table.Column<string>(maxLength: 10, nullable: true),
-                    Puntuacion = table.Column<int>(nullable: false),
-                    PlanificacionId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Receta", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Receta_Planificacion_PlanificacionId",
-                        column: x => x.PlanificacionId,
-                        principalTable: "Planificacion",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CalendarioUsuario",
+                name: "CalendariosUsuarios",
                 columns: table => new
                 {
                     CalendarioId = table.Column<int>(nullable: false),
@@ -99,23 +82,23 @@ namespace PrimeraApiNetCore.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CalendarioUsuario", x => new { x.CalendarioId, x.UsuarioId });
+                    table.PrimaryKey("PK_CalendariosUsuarios", x => new { x.CalendarioId, x.UsuarioId });
                     table.ForeignKey(
-                        name: "FK_CalendarioUsuario_Calendario_CalendarioId",
+                        name: "FK_CalendariosUsuarios_Calendarios_CalendarioId",
                         column: x => x.CalendarioId,
-                        principalTable: "Calendario",
+                        principalTable: "Calendarios",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CalendarioUsuario_Usuario_UsuarioId",
+                        name: "FK_CalendariosUsuarios_Usuarios_UsuarioId",
                         column: x => x.UsuarioId,
-                        principalTable: "Usuario",
+                        principalTable: "Usuarios",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "RecetaUsuario",
+                name: "RecetasUsuarios",
                 columns: table => new
                 {
                     RecetaId = table.Column<int>(nullable: false),
@@ -124,80 +107,88 @@ namespace PrimeraApiNetCore.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RecetaUsuario", x => new { x.RecetaId, x.UsuarioId });
+                    table.PrimaryKey("PK_RecetasUsuarios", x => new { x.RecetaId, x.UsuarioId });
                     table.ForeignKey(
-                        name: "FK_RecetaUsuario_Receta_RecetaId",
+                        name: "FK_RecetasUsuarios_Recetas_RecetaId",
                         column: x => x.RecetaId,
-                        principalTable: "Receta",
+                        principalTable: "Recetas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_RecetaUsuario_Usuario_UsuarioId",
+                        name: "FK_RecetasUsuarios_Usuarios_UsuarioId",
                         column: x => x.UsuarioId,
-                        principalTable: "Usuario",
+                        principalTable: "Usuarios",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PlanificacionReceta",
+                columns: table => new
+                {
+                    PlanificacionId = table.Column<int>(nullable: false),
+                    RecetaId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PlanificacionReceta", x => new { x.RecetaId, x.PlanificacionId });
+                    table.ForeignKey(
+                        name: "FK_PlanificacionReceta_Planificaciones_PlanificacionId",
+                        column: x => x.PlanificacionId,
+                        principalTable: "Planificaciones",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PlanificacionReceta_Recetas_RecetaId",
+                        column: x => x.RecetaId,
+                        principalTable: "Recetas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CalendarioUsuario_UsuarioId",
-                table: "CalendarioUsuario",
+                name: "IX_CalendariosUsuarios_UsuarioId",
+                table: "CalendariosUsuarios",
                 column: "UsuarioId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Planificacion_CalendarioId",
-                table: "Planificacion",
+                name: "IX_Planificaciones_CalendarioId",
+                table: "Planificaciones",
                 column: "CalendarioId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Receta_PlanificacionId",
-                table: "Receta",
+                name: "IX_PlanificacionReceta_PlanificacionId",
+                table: "PlanificacionReceta",
                 column: "PlanificacionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RecetaUsuario_UsuarioId",
-                table: "RecetaUsuario",
+                name: "IX_RecetasUsuarios_UsuarioId",
+                table: "RecetasUsuarios",
                 column: "UsuarioId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Usuario_CalendarioId",
-                table: "Usuario",
-                column: "CalendarioId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CalendarioUsuario");
+                name: "CalendariosUsuarios");
 
             migrationBuilder.DropTable(
-                name: "RecetaUsuario");
+                name: "PlanificacionReceta");
 
             migrationBuilder.DropTable(
-                name: "Receta");
+                name: "RecetasUsuarios");
 
             migrationBuilder.DropTable(
-                name: "Usuario");
+                name: "Planificaciones");
 
             migrationBuilder.DropTable(
-                name: "Planificacion");
+                name: "Recetas");
 
             migrationBuilder.DropTable(
-                name: "Calendario");
+                name: "Usuarios");
 
-            migrationBuilder.CreateTable(
-                name: "Recetas",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    nombre = table.Column<string>(nullable: true),
-                    puntuacion = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Recetas", x => x.Id);
-                });
+            migrationBuilder.DropTable(
+                name: "Calendarios");
         }
     }
 }

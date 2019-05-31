@@ -6,6 +6,8 @@ using System.Linq;
 using DAL.Repositories.Interfaces;
 using DAL.Services;
 using DAL.Models;
+using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories
 {
@@ -13,11 +15,10 @@ namespace DAL.Repositories
     {
        public RecetasRepository(ApplicationDbContext context) : base(context)
         { }
-
-        public IEnumerable<Receta> GetAllByUser(int usuarioId)
+        
+        public IEnumerable<Receta> GetAllByUserId(int userId)
         {
-            return _appContext.Receta.Where(r => r.Id==usuarioId).ToList();
-            throw new NotImplementedException();
+            return _appContext.RecetasUsuarios.Include(x => x.Receta).Where(x => x.UsuarioId == userId).Select(x => x.Receta).ToList();
         }
 
         public Receta GetById()
@@ -30,6 +31,10 @@ namespace DAL.Repositories
             throw new NotImplementedException();
         }
 
+        public IEnumerable<Receta> GetByUserId(int userId, Expression<Func<Receta, bool>> filter = null, Func<IQueryable<Receta>, IOrderedQueryable<Receta>> orderBy = null, string includeProperties = "")
+        {
+            throw new NotImplementedException();
+        }
         private ApplicationDbContext _appContext => (ApplicationDbContext)_context;
     }
 }

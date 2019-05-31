@@ -20,9 +20,6 @@ namespace DAL.Models
 
         public List<RecetaUsuario> RecetasUsuarios { get; set; }
 
-        [Required]
-        public int PlanificacionId { get; set; }
-
-        public Planificacion Planificacion { get; set; }
+        public List<PlanificacionReceta> PlanificacionesRecetas { get; set; }
     }
 }

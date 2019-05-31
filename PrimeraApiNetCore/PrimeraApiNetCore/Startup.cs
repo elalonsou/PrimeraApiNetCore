@@ -16,6 +16,7 @@ using Microsoft.EntityFrameworkCore;
 using DAL.Services.Interfaces;
 using DAL.Services;
 
+
 namespace PrimeraApiNetCore
 {
     public class Startup
@@ -54,6 +55,9 @@ namespace PrimeraApiNetCore
 
             // Repositories
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            // DB Creation and Seeding
+            services.AddTransient<IDatabaseInitializer, DatabaseInitializer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
