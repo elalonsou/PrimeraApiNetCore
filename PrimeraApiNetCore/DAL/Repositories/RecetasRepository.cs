@@ -9,15 +9,26 @@ using DAL.Models;
 
 namespace DAL.Repositories
 {
-    public class RecetasRepository: GenericRepository<RecetasRepository>, IRecetasRepository
+    public class RecetasRepository: GenericRepository<RecetasRepository>, IRecetaRepository
     {
        public RecetasRepository(ApplicationDbContext context) : base(context)
         { }
 
-       public IEnumerable<Recetas> getAllByUser()
-       { 
-            return _appContext.Recetas.Where(r => r.nombre.Contains("Pollo")).ToList();
-       }
+        public IEnumerable<Receta> GetAllByUser(int usuarioId)
+        {
+            return _appContext.Receta.Where(r => r.Id==usuarioId).ToList();
+            throw new NotImplementedException();
+        }
+
+        public Receta GetById()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Receta> GetPaginada(int pagina, int cantidad)
+        {
+            throw new NotImplementedException();
+        }
 
         private ApplicationDbContext _appContext => (ApplicationDbContext)_context;
     }

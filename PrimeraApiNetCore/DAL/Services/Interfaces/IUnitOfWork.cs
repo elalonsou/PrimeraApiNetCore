@@ -4,7 +4,7 @@ namespace DAL.Services.Interfaces
 {
     public interface IUnitOfWork
     {
-        IRecetasRepository Recetas { get; }
+        IRecetaRepository Recetas { get; }
       
         int SaveChanges();
     }

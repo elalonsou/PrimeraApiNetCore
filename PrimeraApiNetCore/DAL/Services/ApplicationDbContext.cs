@@ -10,7 +10,10 @@ namespace DAL.Services
     public class ApplicationDbContext: DbContext
     {
         public string CurrentUserId { get; set; }
-        public DbSet<Recetas> Recetas { get; set; }
+
+        public DbSet<Receta> Receta { get; set; }
+        public DbSet<Calendario> Calendario { get; set; }
+        public DbSet<Planificacion> Planificacion { get; set; }
 
         public ApplicationDbContext(DbContextOptions options) : base(options)
         { }
@@ -43,7 +46,13 @@ namespace DAL.Services
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //Fluent API
+            modelBuilder
+               .Entity<Planificacion>()
+               .Property(e => e.TipoPlanificacion)
+               .HasConversion<string>();
 
+            modelBuilder.Entity<CalendarioUsuario>().HasKey(p => new { p.CalendarioId, p.UsuarioId });
+            modelBuilder.Entity<RecetaUsuario>().HasKey(p => new { p.RecetaId, p.UsuarioId });
         }
 
      

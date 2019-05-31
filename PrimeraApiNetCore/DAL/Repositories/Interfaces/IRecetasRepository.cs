@@ -5,8 +5,13 @@ using DAL.Models;
 
 namespace DAL.Repositories.Interfaces
 {
-    public interface IRecetasRepository
+    public interface IRecetaRepository
     {
-         IEnumerable<Recetas> getAllByUser();
+        IEnumerable<Receta> GetAllByUser(int usuarioId);
+
+        Receta GetById();
+
+        IEnumerable<Receta> GetPaginada(int pagina, int cantidad);
+
     }
 }

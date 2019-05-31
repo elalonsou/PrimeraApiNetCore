@@ -7,14 +7,14 @@ namespace DAL.Services
     {
         readonly ApplicationDbContext _context;
 
-        IRecetasRepository _recetas;
+        IRecetaRepository _recetas;
 
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public IRecetasRepository Recetas
+        public IRecetaRepository Recetas
         {
             get
             {
