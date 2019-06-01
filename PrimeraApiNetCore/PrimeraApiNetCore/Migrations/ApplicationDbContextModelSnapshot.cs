@@ -27,7 +27,7 @@ namespace PrimeraApiNetCore.Migrations
 
                     b.Property<string>("Nombre")
                         .IsRequired()
-                        .HasMaxLength(10);
+                        .HasMaxLength(100);
 
                     b.HasKey("Id");
 
@@ -89,7 +89,8 @@ namespace PrimeraApiNetCore.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Nombre")
-                        .HasMaxLength(10);
+                        .IsRequired()
+                        .HasMaxLength(100);
 
                     b.Property<int>("Puntuacion");
 
@@ -123,7 +124,7 @@ namespace PrimeraApiNetCore.Migrations
                         .IsRequired();
 
                     b.Property<string>("Apellidos")
-                        .HasMaxLength(10);
+                        .HasMaxLength(100);
 
                     b.Property<string>("Email")
                         .IsRequired();

@@ -60,6 +60,10 @@ namespace DAL.Services
             modelBuilder.Entity<CalendarioUsuario>().HasKey(p => new { p.CalendarioId, p.UsuarioId });
             modelBuilder.Entity<RecetaUsuario>().HasKey(p => new { p.RecetaId, p.UsuarioId });
             modelBuilder.Entity<PlanificacionReceta>().HasKey(p => new { p.RecetaId, p.PlanificacionId });
+
+            //modelBuilder.Entity<Planificacion>()
+            //    .Property(p => p.Fecha)
+            //    .HasColumnType("date");
         }
 
      

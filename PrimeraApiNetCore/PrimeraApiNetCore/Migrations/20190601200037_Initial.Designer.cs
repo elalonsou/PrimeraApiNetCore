@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace PrimeraApiNetCore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190531214315_Initial")]
+    [Migration("20190601200037_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,7 +29,7 @@ namespace PrimeraApiNetCore.Migrations
 
                     b.Property<string>("Nombre")
                         .IsRequired()
-                        .HasMaxLength(10);
+                        .HasMaxLength(100);
 
                     b.HasKey("Id");
 
@@ -91,7 +91,8 @@ namespace PrimeraApiNetCore.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Nombre")
-                        .HasMaxLength(10);
+                        .IsRequired()
+                        .HasMaxLength(100);
 
                     b.Property<int>("Puntuacion");
 
@@ -125,7 +126,7 @@ namespace PrimeraApiNetCore.Migrations
                         .IsRequired();
 
                     b.Property<string>("Apellidos")
-                        .HasMaxLength(10);
+                        .HasMaxLength(100);
 
                     b.Property<string>("Email")
                         .IsRequired();

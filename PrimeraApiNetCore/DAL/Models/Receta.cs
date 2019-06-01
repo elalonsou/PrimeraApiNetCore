@@ -12,7 +12,8 @@ namespace DAL.Models
         [Required]
         public int Id { get; set; }
 
-        [StringLength(10, ErrorMessage = "Error en el tamaño del campo", MinimumLength = 3)]
+        [Required]
+        [StringLength(100, ErrorMessage = "Error en el tamaño del campo", MinimumLength = 3)]
         public string Nombre { get; set; }
 
         [Range(0,5)]

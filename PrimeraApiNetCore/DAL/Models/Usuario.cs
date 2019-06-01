@@ -12,7 +12,7 @@ namespace DAL.Models
         [StringLength(50, ErrorMessage = "Error en el tamaño del campo" , MinimumLength = 3)]
         public string Nombre { get; set; }
 
-        [StringLength(10, ErrorMessage = "Error en el tamaño del campo")]
+        [StringLength(100, ErrorMessage = "Error en el tamaño del campo")]
         public string Apellidos { get; set; }
 
         [Required]

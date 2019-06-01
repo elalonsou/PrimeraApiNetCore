@@ -7,11 +7,17 @@ namespace DAL.Models
 {
     public class Planificacion
     {
+        DateTime _fecha;
+
         [Required]
         public int Id { get; set; }
 
         [Required]
-        public DateTime Fecha { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime Fecha {
+            get { return _fecha; }
+            set { _fecha = value; }
+        }
 
         [Required]
         public TipoPlanificacion TipoPlanificacion { get; set; }

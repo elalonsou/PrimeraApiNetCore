@@ -14,7 +14,7 @@ namespace PrimeraApiNetCore.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Nombre = table.Column<string>(maxLength: 10, nullable: false)
+                    Nombre = table.Column<string>(maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -27,7 +27,7 @@ namespace PrimeraApiNetCore.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Nombre = table.Column<string>(maxLength: 10, nullable: true),
+                    Nombre = table.Column<string>(maxLength: 100, nullable: false),
                     Puntuacion = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -42,7 +42,7 @@ namespace PrimeraApiNetCore.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Nombre = table.Column<string>(maxLength: 50, nullable: false),
-                    Apellidos = table.Column<string>(maxLength: 10, nullable: true),
+                    Apellidos = table.Column<string>(maxLength: 100, nullable: true),
                     Email = table.Column<string>(nullable: false),
                     Alias = table.Column<string>(nullable: false)
                 },
