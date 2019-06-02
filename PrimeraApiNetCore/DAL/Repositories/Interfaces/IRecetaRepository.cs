@@ -2,15 +2,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using DAL.Models;
 
 namespace DAL.Repositories.Interfaces
 {
-    public interface IRecetaRepository
+    public interface IRecetaRepository: IGenericRepository<Receta>
     {
         IEnumerable<Receta> GetAllByUserId(int userId);
 
-        Receta GetById();
+        Task<IEnumerable<Receta>> GetAllByUserIdAsync(int userId);
+
+
+        Receta GetById(int id);
 
         IEnumerable<Receta> GetPaginada(int pagina, int cantidad);
 

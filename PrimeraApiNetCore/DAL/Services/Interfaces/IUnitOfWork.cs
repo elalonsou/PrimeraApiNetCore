@@ -6,6 +6,8 @@ namespace DAL.Services.Interfaces
     {
         IRecetaRepository Recetas { get; }
       
+        
+
         int SaveChanges();
     }
 }

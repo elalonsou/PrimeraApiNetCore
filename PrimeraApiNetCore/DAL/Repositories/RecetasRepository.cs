@@ -8,10 +8,11 @@ using DAL.Services;
 using DAL.Models;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace DAL.Repositories
 {
-    public class RecetasRepository: GenericRepository<RecetasRepository>, IRecetaRepository
+    public class RecetasRepository: GenericRepository<Receta>, IRecetaRepository
     {
        public RecetasRepository(ApplicationDbContext context) : base(context)
         { }
@@ -21,9 +22,14 @@ namespace DAL.Repositories
             return _appContext.RecetasUsuarios.Include(x => x.Receta).Where(x => x.UsuarioId == userId).Select(x => x.Receta).ToList();
         }
 
-        public Receta GetById()
+        public async Task <IEnumerable<Receta>> GetAllByUserIdAsync(int userId)
         {
-            throw new NotImplementedException();
+            return await _appContext.RecetasUsuarios.Include(x => x.Receta).Where(x => x.UsuarioId == userId).Select(x => x.Receta).ToListAsync();
+        }
+
+        public Receta GetById(int id)
+        {
+            return _appContext.Recetas.Where(x => x.Id==id).FirstOrDefault();
         }
 
         public IEnumerable<Receta> GetPaginada(int pagina, int cantidad)

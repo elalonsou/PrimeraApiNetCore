@@ -4,10 +4,11 @@ using System.Linq;
 using System.Data;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using DAL.Repositories.Interfaces;
 
 namespace DAL.Repositories
 {
-    public class GenericRepository<TEntity> where TEntity : class
+    public class GenericRepository<TEntity>: IGenericRepository<TEntity> where TEntity : class
     {
         internal DbContext _context;
         internal DbSet<TEntity> dbSet;
