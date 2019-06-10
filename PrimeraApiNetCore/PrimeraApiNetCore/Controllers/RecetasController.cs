@@ -36,7 +36,6 @@ namespace PrimeraApiNetCore.Controllers
         public async Task<ActionResult<IEnumerable<Receta>>> GetRecetaByUserId(int id)
         {
             //TODO Faltaria hacer el mapeo para devolver un viewModel en vez del objeto de BBDD
-            //TODO hacer asincrona la respuesta https://docs.microsoft.com/es-es/aspnet/core/web-api/action-return-types?view=aspnetcore-2.2
             //tambien hay que cambier la capa de BBDD.
             return Ok (await _unitOfWork.Recetas.GetAllByUserIdAsync(id));
         }
