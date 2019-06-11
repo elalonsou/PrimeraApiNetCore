@@ -65,7 +65,5 @@ namespace DAL.Services
             //    .Property(p => p.Fecha)
             //    .HasColumnType("date");
         }
-
-     
     }
 }

@@ -20,6 +20,8 @@ namespace DAL.Repositories
         public IEnumerable<Receta> GetAllByUserId(int userId)
         {
             return _appContext.RecetasUsuarios.Include(x => x.Receta).Where(x => x.UsuarioId == userId).Select(x => x.Receta).ToList();
+            //Esto no funciona
+            //return _appContext.Recetas.Include(x => x.RecetasUsuarios.Where(y => y.UsuarioId == userId)).ToList();
         }
 
         public async Task <IEnumerable<Receta>> GetAllByUserIdAsync(int userId)
@@ -32,15 +34,44 @@ namespace DAL.Repositories
             return _appContext.Recetas.Where(x => x.Id==id).FirstOrDefault();
         }
 
+        public async Task<Receta> GetByIdAsync(int id)
+        {
+            return await _appContext.Recetas.Where(x => x.Id == id).FirstOrDefaultAsync();
+        }
+
         public IEnumerable<Receta> GetPaginada(int pagina, int cantidad)
         {
-            throw new NotImplementedException();
+            return _appContext.Recetas.Skip((pagina - 1) * cantidad).Take(cantidad).ToList();
         }
+
 
         public IEnumerable<Receta> GetByUserId(int userId, Expression<Func<Receta, bool>> filter = null, Func<IQueryable<Receta>, IOrderedQueryable<Receta>> orderBy = null, string includeProperties = "")
         {
-            throw new NotImplementedException();
+             throw new NotImplementedException();
+            //IQueryable<Receta> query = dbSet;
+
+            //if (filter != null)
+            //{
+            //    query = query.Where(filter);
+            //}
+
+            //foreach (var includeProperty in includeProperties.Split
+            //    (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            //{
+            //    query = query.Include(includeProperty);
+            //}
+
+            //if (orderBy != null)
+            //{
+            //    return orderBy(query.Include(x => x.RecetasUsuarios.Where(y => y.UsuarioId == userId))).ToList();
+            //}
+            //else
+            //{
+            //Esta opcion no funciona
+            //    return query.Include(x => x.RecetasUsuarios.Where(y => y.UsuarioId==userId)).ToList();
+            //}
         }
+
         private ApplicationDbContext _appContext => (ApplicationDbContext)_context;
     }
 }

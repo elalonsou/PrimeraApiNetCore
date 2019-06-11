@@ -13,6 +13,8 @@ using Microsoft.Extensions.Options;
 
 using Microsoft.EntityFrameworkCore;
 
+using PrimeraApiNetCore.Extensions;
+
 using DAL.Services.Interfaces;
 using DAL.Services;
 
@@ -61,7 +63,7 @@ namespace PrimeraApiNetCore
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILogger<Startup> logger)
         {
             if (env.IsDevelopment())
             {
@@ -72,6 +74,9 @@ namespace PrimeraApiNetCore
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            //Configuración del control de excepciones.
+            app.ConfigureExceptionHandler(logger);
 
             app.UseHttpsRedirection();
             app.UseMvc();

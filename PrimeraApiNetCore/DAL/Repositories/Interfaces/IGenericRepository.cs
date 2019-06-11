@@ -13,7 +13,7 @@ namespace DAL.Repositories.Interfaces
            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
            string includeProperties = "");
 
-        TEntity GetByID(object id);
+        TEntity GetById(object id);
 
         void Insert(TEntity entity);
 

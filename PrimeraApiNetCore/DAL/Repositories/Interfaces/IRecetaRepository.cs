@@ -16,6 +16,8 @@ namespace DAL.Repositories.Interfaces
 
         Receta GetById(int id);
 
+        Task<Receta> GetByIdAsync(int id);
+
         IEnumerable<Receta> GetPaginada(int pagina, int cantidad);
 
         IEnumerable<Receta> GetByUserId(int userId,
