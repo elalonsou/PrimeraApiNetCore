@@ -13,3 +13,10 @@ A continuación, se describen las arquitecturas y patrones que se utilicen:
 - Patrón capas (capa datos y capa negocio (web API))
 - Funcionamiento asíncrono
 - Loggin de ASP Net Core
+- AutoMapper
+
+Se quiere incluir:
+- Swagger
+- Pruebas unitarias
+- Sistema de Autenticacion/Autorización (¿OAuth?)
+

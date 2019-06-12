@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 
 using PrimeraApiNetCore.Extensions;
 
+using AutoMapper;
 using DAL.Services.Interfaces;
 using DAL.Services;
 
@@ -51,8 +52,6 @@ namespace PrimeraApiNetCore
                         .EnableSensitiveDataLogging(true)
                         .UseLoggerFactory(services.BuildServiceProvider()
                                         .GetService<ILoggerFactory>())
-                
-              
             );
 
             // Repositories
@@ -60,6 +59,16 @@ namespace PrimeraApiNetCore
 
             // DB Creation and Seeding
             services.AddTransient<IDatabaseInitializer, DatabaseInitializer>();
+
+            services.AddAutoMapper((options =>
+                                        {
+                                            options.CreateMap<DAL.Models.Receta, PrimeraApiNetCore.ViewModels.RecetaGet>();
+                                            options.CreateMap< PrimeraApiNetCore.ViewModels.RecetaInsert, DAL.Models.Receta>();
+                                        })
+                                    , AppDomain.CurrentDomain.GetAssemblies()
+            );
+            //services.AddAutoMapper(DAL.Models.Receta,PrimeraApiNetCore.ViewModels.RecetaGet);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -77,7 +86,7 @@ namespace PrimeraApiNetCore
 
             //Configuración del control de excepciones.
             app.ConfigureExceptionHandler(logger);
-
+            
             app.UseHttpsRedirection();
             app.UseMvc();
         }
