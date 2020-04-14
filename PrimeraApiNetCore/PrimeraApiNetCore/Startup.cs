@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 
 using Microsoft.EntityFrameworkCore;
@@ -34,7 +35,8 @@ namespace PrimeraApiNetCore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddControllers();
 
             services.AddLogging(builder =>
                    builder.AddConsole()
@@ -62,8 +64,8 @@ namespace PrimeraApiNetCore
 
             services.AddAutoMapper((options =>
                                         {
-                                            options.CreateMap<DAL.Models.Receta, PrimeraApiNetCore.ViewModels.RecetaGet>();
-                                            options.CreateMap< PrimeraApiNetCore.ViewModels.RecetaInsert, DAL.Models.Receta>();
+                                            options.CreateMap<DAL.Models.Receta, PrimeraApiNetCore.ViewModels.RecipeModels.RecetaGet>();
+                                            options.CreateMap< PrimeraApiNetCore.ViewModels.RecipeModels.RecetaInsert, DAL.Models.Receta>();
                                         })
                                     , AppDomain.CurrentDomain.GetAssemblies()
             );
@@ -71,8 +73,29 @@ namespace PrimeraApiNetCore
 
         }
 
+        //////////// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        //////////public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILogger<Startup> logger)
+        //////////{
+        //////////    if (env.IsDevelopment())
+        //////////    {
+        //////////        app.UseDeveloperExceptionPage();
+        //////////    }
+        //////////    else
+        //////////    {
+        //////////        // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+        //////////        app.UseHsts();
+        //////////    }
+
+        //////////    //Configuración del control de excepciones.
+        //////////    app.ConfigureExceptionHandler(logger);
+            
+        //////////    app.UseHttpsRedirection();
+        //////////    app.UseMvc();
+        //////////}
+
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILogger<Startup> logger)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
             if (env.IsDevelopment())
             {
@@ -86,9 +109,15 @@ namespace PrimeraApiNetCore
 
             //Configuración del control de excepciones.
             app.ConfigureExceptionHandler(logger);
-            
+
             app.UseHttpsRedirection();
-            app.UseMvc();
+
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
     }
 }

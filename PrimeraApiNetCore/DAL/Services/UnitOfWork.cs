@@ -1,5 +1,6 @@
 using DAL.Repositories.Interfaces;
 using DAL.Repositories;
+using System.Threading.Tasks;
 
 namespace DAL.Services
 {
@@ -28,6 +29,11 @@ namespace DAL.Services
         public int SaveChanges()
         {
            return _context.SaveChanges();
+        }
+
+        public async Task<int> SaveChangesAsync()
+        {
+            return await _context.SaveChangesAsync();
         }
     }
 }

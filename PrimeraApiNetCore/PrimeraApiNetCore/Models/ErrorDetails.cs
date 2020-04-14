@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+
 namespace PrimeraApiNetCore.Models
 {
      public class ErrorDetails

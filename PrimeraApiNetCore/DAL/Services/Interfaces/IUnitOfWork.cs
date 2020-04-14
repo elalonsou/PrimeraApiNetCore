@@ -1,4 +1,5 @@
 using DAL.Repositories.Interfaces;
+using System.Threading.Tasks;
 
 namespace DAL.Services.Interfaces
 {
@@ -9,5 +10,7 @@ namespace DAL.Services.Interfaces
         
 
         int SaveChanges();
+
+        Task<int> SaveChangesAsync();
     }
 }

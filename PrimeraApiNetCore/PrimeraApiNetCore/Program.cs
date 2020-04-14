@@ -8,6 +8,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace PrimeraApiNetCore
@@ -16,7 +17,7 @@ namespace PrimeraApiNetCore
     {
         public static void Main(string[] args)
         {
-            var host = CreateWebHostBuilder(args).Build();
+            var host = CreateHostBuilder(args).Build();
 
             //Seed database
             using (var scope = host.Services.CreateScope())
@@ -37,16 +38,31 @@ namespace PrimeraApiNetCore
             host.Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>().ConfigureLogging((hostingContext, logging) =>
-                {
-                    logging.ClearProviders();
-                    logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-                    logging.AddConsole();
-                    logging.AddDebug();
-                    logging.AddEventSourceLogger();
-                    logging.AddFile(hostingContext.Configuration.GetSection("Logging"));
-                });
+        //public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+        //    WebHost.CreateDefaultBuilder(args)
+        //        .UseStartup<Startup>().ConfigureLogging((hostingContext, logging) =>
+        //        {
+        //            logging.ClearProviders();
+        //            logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+        //            logging.AddConsole();
+        //            logging.AddDebug();
+        //            logging.AddEventSourceLogger();
+        //            logging.AddFile(hostingContext.Configuration.GetSection("Logging"));
+        //        });
+
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+         Host.CreateDefaultBuilder(args)
+             .ConfigureWebHostDefaults(webBuilder =>
+             {
+                 webBuilder.UseStartup<Startup>().ConfigureLogging((hostingContext, logging) =>
+                 {
+                     logging.ClearProviders();
+                     logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+                     logging.AddConsole();
+                     logging.AddDebug();
+                     logging.AddEventSourceLogger();
+                     logging.AddFile(hostingContext.Configuration.GetSection("Logging"));
+                 });
+             });
     }
 }

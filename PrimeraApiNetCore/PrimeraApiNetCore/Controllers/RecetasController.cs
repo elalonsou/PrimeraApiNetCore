@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
-using PrimeraApiNetCore.ViewModels;
+using PrimeraApiNetCore.ViewModels.RecipeModels;
 
 using AutoMapper;
 
@@ -30,19 +30,7 @@ namespace PrimeraApiNetCore.Controllers
             _mapper = mapper;
         }
 
-        //////////Produces Response type es para ayudar a herramientas como Swagger.
-        ////////[HttpGet("user/{Id}")]
-        ////////[ProducesResponseType(typeof(IEnumerable<Receta>), StatusCodes.Status200OK)]
-        ////////[ProducesResponseType(StatusCodes.Status404NotFound)]
-        ////////public ActionResult<IEnumerable<Receta>> GetRecetaByUserId(int id){
-        ////////    //TODO Faltaria hacer el mapeo para devolver un viewModel en vez del objeto de BBDD
-        ////////    //TODO hacer asincrona la respuesta https://docs.microsoft.com/es-es/aspnet/core/web-api/action-return-types?view=aspnetcore-2.2
-        ////////    //tambien hay que cambier la capa de BBDD.
-        ////////    return Ok(_unitOfWork.Recetas.GetAllByUserId(id));
-        ////////}
-
-
-        //Produces Response type es para ayudar a herramientas como Swagger.
+         //Produces Response type es para ayudar a herramientas como Swagger.
         [HttpGet("usuario/{Id}")]
         [ProducesResponseType(typeof(IEnumerable<Receta>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -76,7 +64,7 @@ namespace PrimeraApiNetCore.Controllers
             recetaDAL = _mapper.Map<Receta>(receta);
 
             _unitOfWork.Recetas.Insert(recetaDAL);
-            _unitOfWork.SaveChanges();
+            _unitOfWork.SaveChangesAsync();
             RecetaGet recetaGet;
             recetaGet = _mapper.Map<RecetaGet>(recetaDAL);
 
