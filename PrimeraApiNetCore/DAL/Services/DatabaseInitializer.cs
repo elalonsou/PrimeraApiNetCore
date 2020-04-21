@@ -171,13 +171,13 @@ namespace DAL.Services
 
         public async Task Eliminar()
         {
-            await _context.Database.ExecuteSqlCommandAsync("DELETE FROM [Recetas]");
-            await _context.Database.ExecuteSqlCommandAsync("DELETE FROM [RecetasUsuarios]");
-            await _context.Database.ExecuteSqlCommandAsync("DELETE FROM [Usuarios]");
-            await _context.Database.ExecuteSqlCommandAsync("DELETE FROM [PlanificacionReceta]");
-            await _context.Database.ExecuteSqlCommandAsync("DELETE FROM [Planificaciones]");
-            await _context.Database.ExecuteSqlCommandAsync("DELETE FROM [CalendariosUsuarios]");
-            await _context.Database.ExecuteSqlCommandAsync("DELETE FROM [Calendarios]");
+            await _context.Database.ExecuteSqlRawAsync("DELETE FROM [Recetas]");
+            await _context.Database.ExecuteSqlRawAsync("DELETE FROM [RecetasUsuarios]");
+            await _context.Database.ExecuteSqlRawAsync("DELETE FROM [Usuarios]");
+            await _context.Database.ExecuteSqlRawAsync("DELETE FROM [PlanificacionReceta]");
+            await _context.Database.ExecuteSqlRawAsync("DELETE FROM [Planificaciones]");
+            await _context.Database.ExecuteSqlRawAsync("DELETE FROM [CalendariosUsuarios]");
+            await _context.Database.ExecuteSqlRawAsync("DELETE FROM [Calendarios]");
 
         }
     }
